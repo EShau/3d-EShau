@@ -50,7 +50,7 @@ def parse_file( fname, edges, transform, screen, color ):
     f = open(fname)
     lines = f.readlines()
 
-    step = 0.01
+    step = 0.025
 
     c = 0
     while c < len(lines):
@@ -61,16 +61,23 @@ def parse_file( fname, edges, transform, screen, color ):
             c+= 1
             args = lines[c].strip().split(' ')
 
+        if line == 'clear':
+            del edges[:]
+
         if line == 'sphere':
             add_sphere( edges,
                         float(args[0]), float(args[1]), float(args[2]),
                         float(args[3]), step)
 
         elif line == 'torus':
-            pass
+            add_torus(  edges,
+                        float(args[0]), float(args[1]), float(args[2]),
+                        float(args[3]), float(args[4]), step)
 
         elif line == 'box':
-            pass
+            add_box(    edges,
+                        float(args[0]), float(args[1]), float(args[2]),
+                        float(args[3]), float(args[4]), float(args[5]))
 
         elif line == 'circle':
             #print 'CIRCLE\t' + str(args)
